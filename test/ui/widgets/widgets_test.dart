@@ -100,5 +100,26 @@ void main() {
       expect(actionFired, isTrue);
     });
 
-      });
+    testWidgets('ConfirmDialog confirms', (tester) async {
+      bool? res;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (ctx) => ElevatedButton(
+              onPressed: () async {
+                res = await ConfirmDialog.show(ctx, title: 'Title', message: 'Message');
+              },
+              child: const Text('Show'),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Show'));
+      await tester.pump();
+      expect(find.text('Title'), findsOneWidget);
+      await tester.tap(find.text('Confirm'));
+      await tester.pump();
+      expect(res, isTrue);
+    });
+  });
 }
