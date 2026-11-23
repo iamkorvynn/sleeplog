@@ -44,4 +44,5 @@ void main() {
       expect(service.scheduledItems, isEmpty);
     });
   });
+}  });
 }
