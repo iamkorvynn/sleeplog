@@ -73,4 +73,11 @@ class SleepProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteAllNights() async {
+    await repository.deleteAllNights();
+    _nights = [];
+    _recalculateStats();
+    notifyListeners();
+  }
+
   }
