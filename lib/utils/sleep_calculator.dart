@@ -124,4 +124,59 @@ class SleepCalculator {
     return ((total / nights.length) * 10).roundToDouble() / 10;
   }
 
+  static SleepStats computeAllStats(
+    List<SleepNight> nights,
+    SleepSettings settings, {
+    DateTime? referenceDate,
+  }) {
+    if (nights.isEmpty) {
+      return const SleepStats.empty();
+    }
+
+    final nights7 = calculateNightsInWindow(nights, 7, referenceDate: referenceDate);
+    final nights30 = calculateNightsInWindow(nights, 30, referenceDate: referenceDate);
+
+    final avg7 = calculateAverageDuration(nights7);
+    final avg30 = calculateAverageDuration(nights30);
+    final avgAll = calculateAverageDuration(nights);
+
+    final longest = calculateLongestNight(nights);
+    final shortest = calculateShortestNight(nights);
+
+    final consistency = calculateBedtimeConsistency(nights);
+    final currentStreak = calculateGoalStreak(nights, settings.goalHours);
+    final bestStreak = calculateBestGoalStreak(nights, settings.goalHours);
+
+    final debt7 = calculateSleepDebt(nights, settings.goalHours, days: 7, referenceDate: referenceDate);
+
+    final avgQuality7 = calculateAverageQuality(nights7);
+    final avgQuality30 = calculateAverageQuality(nights30);
+    final avgQualityAll = calculateAverageQuality(nights);
+    final qualityDist = calculateQualityDistribution(nights);
+
+    final metCount = nights.where((n) => n.isGoalMet(settings.goalHours)).length;
+    final missedCount = nights.length - metCount;
+    final metPercentage = ((metCount / nights.length) * 1000).roundToDouble() / 10;
+
+    return SleepStats(
+      totalNights: nights.length,
+      averageDuration7Days: avg7,
+      averageDuration30Days: avg30,
+      averageDurationAllTime: avgAll,
+      longestNight: longest,
+      shortestNight: shortest,
+      bedtimeConsistencyScore: consistency['score'] ?? 100.0,
+      bedtimeConsistencyStdDevMinutes: consistency['stdDevMinutes'] ?? 0.0,
+      currentGoalStreak: currentStreak,
+      bestGoalStreak: bestStreak,
+      sleepDebt7Days: debt7,
+      averageQuality7Days: avgQuality7,
+      averageQuality30Days: avgQuality30,
+      averageQualityAllTime: avgQualityAll,
+      qualityDistribution: qualityDist,
+      nightsGoalMetCount: metCount,
+      nightsGoalMissedCount: missedCount,
+      goalMetPercentage: metPercentage,
+    );
   }
+}
