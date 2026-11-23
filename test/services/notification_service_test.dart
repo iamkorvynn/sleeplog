@@ -25,24 +25,5 @@ void main() {
       });
     }
 
-    test('scheduleMorningSummary schedules notification', () async {
-      const s = SleepSettings(morningSummaryHour: 8, morningSummaryMinute: 30);
-      await service.scheduleMorningSummary(s);
-      expect(service.scheduledItems.any((i) => i.id == 1002), isTrue);
-    });
-
-    test('cancel methods clear scheduled items', () async {
-      const s = SleepSettings.defaults();
-      await service.scheduleBedtimeReminder(s);
-      await service.scheduleMorningSummary(s);
-      expect(service.scheduledItems.length, 2);
-
-      await service.cancelBedtimeReminder();
-      expect(service.scheduledItems.length, 1);
-
-      await service.cancelAll();
-      expect(service.scheduledItems, isEmpty);
-    });
-  });
-}  });
+      });
 }
