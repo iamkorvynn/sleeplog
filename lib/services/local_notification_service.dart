@@ -29,4 +29,36 @@ class LocalNotificationService implements NotificationService {
     return true;
   }
 
+  @override
+  Future<void> scheduleBedtimeReminder(SleepSettings settings) async {
+    await cancelBedtimeReminder();
+    if (!settings.bedtimeReminderEnabled) return;
+
+    int totalMinutes = settings.targetBedtimeHour * 60 + settings.targetBedtimeMinute - settings.bedtimeReminderMinutesBefore;
+    if (totalMinutes < 0) totalMinutes += 1440;
+
+    const androidDetails = AndroidNotificationDetails(
+      AppConstants.notificationChannelId,
+      AppConstants.notificationChannelName,
+      channelDescription: AppConstants.notificationChannelDescription,
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+    const notificationDetails = NotificationDetails(android: androidDetails);
+
+    try {
+      // Local notification display
+      await _notificationsPlugin.periodicallyShow(
+        AppConstants.bedtimeNotificationId,
+        'Time to wind down',
+        'Bedtime is in ${settings.bedtimeReminderMinutesBefore} minutes. Dim lights and prepare for rest.',
+        RepeatInterval.daily,
+        notificationDetails,
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      );
+    } catch (_) {
+      // Gracefully ignore if scheduled notification platform failure occurs in emulator or headless
+    }
+  }
+
   }
