@@ -167,3 +167,65 @@ class LastNightCard extends StatelessWidget {
   }
 }
 
+class TargetBedtimeCard extends StatelessWidget {
+  final SleepSettings settings;
+
+  const TargetBedtimeCard({super.key, required this.settings});
+
+  @override
+  Widget build(BuildContext context) {
+    final bedtimeStr = TimeFormatter.formatTimeOfDay(
+      settings.targetBedtimeHour,
+      settings.targetBedtimeMinute,
+      use24HourFormat: settings.use24HourFormat,
+    );
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: AppColors.accentAmber.withAlpha(25),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.alarm_on_rounded, color: AppColors.accentAmber, size: 24),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Tonight's Target Bedtime",
+                    style: TextStyle(fontSize: 13, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    bedtimeStr,
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                  ),
+                ],
+              ),
+            ),
+            if (settings.bedtimeReminderEnabled)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withAlpha(30),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  '-${settings.bedtimeReminderMinutesBefore}m reminder',
+                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.primaryLight),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
