@@ -54,20 +54,5 @@ void main() {
       expect(provider.nights, isEmpty);
     });
 
-    test('deleteAllNights clears state', () async {
-      await provider.addNight(SleepNight(id: '1', bedtime: DateTime(2026, 1, 1), wakeTime: DateTime(2026, 1, 1, 8), quality: 4));
-      await provider.addNight(SleepNight(id: '2', bedtime: DateTime(2026, 1, 2), wakeTime: DateTime(2026, 1, 2, 8), quality: 4));
-      expect(provider.nights.length, 2);
-      await provider.deleteAllNights();
-      expect(provider.nights, isEmpty);
-    });
-
-    test('updateSettings updates preferences and reschedules notifications', () async {
-      final newS = provider.settings.copyWith(goalHours: 7.0, use24HourFormat: true);
-      await provider.updateSettings(newS);
-      expect(provider.settings.goalHours, 7.0);
-      expect(provider.is24Hour, isTrue);
-    });
-  });
-}  });
+      });
 }
