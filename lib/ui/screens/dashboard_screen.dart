@@ -111,6 +111,4 @@ class DashboardScreen extends StatelessWidget {
       ),
     );
   }
-}return const Center(child: Text("Empty"));
-  }
-}
+}}
