@@ -89,4 +89,36 @@ class SleepSettings {
   Map<String, dynamic> toJson() => toMap();
   factory SleepSettings.fromJson(Map<String, dynamic> json) => SleepSettings.fromMap(json);
 
-  }
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SleepSettings &&
+          runtimeType == other.runtimeType &&
+          goalHours == other.goalHours &&
+          bedtimeReminderEnabled == other.bedtimeReminderEnabled &&
+          bedtimeReminderMinutesBefore == other.bedtimeReminderMinutesBefore &&
+          targetBedtimeHour == other.targetBedtimeHour &&
+          targetBedtimeMinute == other.targetBedtimeMinute &&
+          morningSummaryEnabled == other.morningSummaryEnabled &&
+          morningSummaryHour == other.morningSummaryHour &&
+          morningSummaryMinute == other.morningSummaryMinute &&
+          use24HourFormat == other.use24HourFormat &&
+          themeMode == other.themeMode;
+
+  @override
+  int get hashCode => Object.hash(
+        goalHours,
+        bedtimeReminderEnabled,
+        bedtimeReminderMinutesBefore,
+        targetBedtimeHour,
+        targetBedtimeMinute,
+        morningSummaryEnabled,
+        morningSummaryHour,
+        morningSummaryMinute,
+        use24HourFormat,
+        themeMode,
+      );
+
+  @override
+  String toString() => 'SleepSettings(goalHours: $goalHours, reminder: $bedtimeReminderEnabled, targetBedtime: $targetBedtimeHour:$targetBedtimeMinute)';
+}
