@@ -87,4 +87,24 @@ class LocalNotificationService implements NotificationService {
     } catch (_) {}
   }
 
+  @override
+  Future<void> cancelBedtimeReminder() async {
+    try {
+      await _notificationsPlugin.cancel(AppConstants.bedtimeNotificationId);
+    } catch (_) {}
   }
+
+  @override
+  Future<void> cancelMorningSummary() async {
+    try {
+      await _notificationsPlugin.cancel(AppConstants.morningNotificationId);
+    } catch (_) {}
+  }
+
+  @override
+  Future<void> cancelAll() async {
+    try {
+      await _notificationsPlugin.cancelAll();
+    } catch (_) {}
+  }
+}
