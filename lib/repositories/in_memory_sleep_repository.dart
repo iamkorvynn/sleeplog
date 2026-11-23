@@ -7,26 +7,4 @@ class InMemorySleepRepository implements SleepRepository {
   @override
   Future<void> initialize() async {}
 
-  @override
-  Future<List<SleepNight>> getAllNights() async {
-    final list = _storage.values.toList();
-    list.sort((a, b) => b.bedtime.compareTo(a.bedtime));
-    return list;
-  }
-
-  @override
-  Future<SleepNight?> getNightById(String id) async {
-    return _storage[id];
-  }
-
-  @override
-  Future<void> saveNight(SleepNight night) async {
-    _storage[night.id] = night;
-  }
-
-  @override
-  Future<void> updateNight(SleepNight night) async {
-    _storage[night.id] = night;
-  }
-
   }
