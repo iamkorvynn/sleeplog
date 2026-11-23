@@ -42,4 +42,70 @@ class SqliteSleepRepository implements SleepRepository {
     return _db!;
   }
 
+  @override
+  Future<List<SleepNight>> getAllNights() async {
+    final rows = await db.query(
+      AppConstants.nightsTable,
+      orderBy: 'bedtime DESC',
+    );
+    return rows.map((r) => SleepNight.fromMap(r)).toList();
   }
+
+  @override
+  Future<SleepNight?> getNightById(String id) async {
+    final rows = await db.query(
+      AppConstants.nightsTable,
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+    if (rows.isEmpty) return null;
+    return SleepNight.fromMap(rows.first);
+  }
+
+  @override
+  Future<void> saveNight(SleepNight night) async {
+    await db.insert(
+      AppConstants.nightsTable,
+      night.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  @override
+  Future<void> updateNight(SleepNight night) async {
+    await db.update(
+      AppConstants.nightsTable,
+      night.toMap(),
+      where: 'id = ?',
+      whereArgs: [night.id],
+    );
+  }
+
+  @override
+  Future<void> deleteNight(String id) async {
+    await db.delete(
+      AppConstants.nightsTable,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  @override
+  Future<void> deleteAllNights() async {
+    await db.delete(AppConstants.nightsTable);
+  }
+
+  @override
+  Future<void> importNights(List<SleepNight> nights) async {
+    final batch = db.batch();
+    for (final night in nights) {
+      batch.insert(
+        AppConstants.nightsTable,
+        night.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+    await batch.commit(noResult: true);
+  }
+}}
