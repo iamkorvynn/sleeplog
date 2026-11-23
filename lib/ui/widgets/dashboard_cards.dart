@@ -289,3 +289,47 @@ class WeeklyAverageCard extends StatelessWidget {
   }
 }
 
+class StreakCard extends StatelessWidget {
+  final int streak;
+
+  const StreakCard({super.key, required this.streak});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Goal Streak',
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textSecondary),
+                ),
+                Icon(
+                  Icons.local_fire_department_rounded,
+                  size: 20,
+                  color: streak > 0 ? AppColors.streakFire : AppColors.textMuted,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '$streak ${streak == 1 ? "night" : "nights"}',
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              streak > 0 ? 'Consecutive goal met' : 'Log a night meeting goal',
+              style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
