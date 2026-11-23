@@ -72,40 +72,4 @@ class SqliteSleepRepository implements SleepRepository {
     );
   }
 
-  @override
-  Future<void> updateNight(SleepNight night) async {
-    await db.update(
-      AppConstants.nightsTable,
-      night.toMap(),
-      where: 'id = ?',
-      whereArgs: [night.id],
-    );
   }
-
-  @override
-  Future<void> deleteNight(String id) async {
-    await db.delete(
-      AppConstants.nightsTable,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-
-  @override
-  Future<void> deleteAllNights() async {
-    await db.delete(AppConstants.nightsTable);
-  }
-
-  @override
-  Future<void> importNights(List<SleepNight> nights) async {
-    final batch = db.batch();
-    for (final night in nights) {
-      batch.insert(
-        AppConstants.nightsTable,
-        night.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-    await batch.commit(noResult: true);
-  }
-}}
