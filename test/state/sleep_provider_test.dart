@@ -69,4 +69,5 @@ void main() {
       expect(provider.is24Hour, isTrue);
     });
   });
+}  });
 }
