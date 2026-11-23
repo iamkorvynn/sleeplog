@@ -80,4 +80,42 @@ class SleepProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateSettings(SleepSettings newSettings) async {
+    _settings = newSettings;
+    await preferencesRepository.saveSettings(newSettings);
+    _recalculateStats();
+
+    await notificationService.scheduleBedtimeReminder(newSettings);
+    await notificationService.scheduleMorningSummary(newSettings);
+    notifyListeners();
   }
+
+  String exportJson() {
+    return ExportImporter.exportToJson(_nights, _settings);
+  }
+
+  String exportCsv() {
+    return ExportImporter.exportToCsv(_nights, _settings.goalHours);
+  }
+
+  Future<int> importJson(String jsonString) async {
+    final result = ExportImporter.importFromJson(jsonString);
+    if (result.settings != null) {
+      await updateSettings(result.settings!);
+    }
+    await repository.importNights(result.nights);
+    _nights = await repository.getAllNights();
+    _recalculateStats();
+    notifyListeners();
+    return result.count;
+  }
+
+  Future<int> importCsv(String csvString) async {
+    final result = ExportImporter.importFromCsv(csvString);
+    await repository.importNights(result.nights);
+    _nights = await repository.getAllNights();
+    _recalculateStats();
+    notifyListeners();
+    return result.count;
+  }
+}}
