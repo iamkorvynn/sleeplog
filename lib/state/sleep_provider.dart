@@ -118,4 +118,4 @@ class SleepProvider extends ChangeNotifier {
     notifyListeners();
     return result.count;
   }
-}}
+}
