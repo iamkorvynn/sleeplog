@@ -333,3 +333,22 @@ class StreakCard extends StatelessWidget {
   }
 }
 
+class QuickActionSection extends StatelessWidget {
+  final VoidCallback onLogSleep;
+
+  const QuickActionSection({super.key, required this.onLogSleep});
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton.icon(
+      onPressed: onLogSleep,
+      icon: const Icon(Icons.add_rounded),
+      label: const Text('Log Last Night Sleep', style: TextStyle(fontWeight: FontWeight.w600)),
+      style: FilledButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        minimumSize: const Size.fromHeight(50),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ),
+    );
+  }
+}
