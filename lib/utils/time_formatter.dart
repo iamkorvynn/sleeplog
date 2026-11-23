@@ -50,27 +50,4 @@ class TimeFormatter {
     return DateFormat('MMM d').format(date);
   }
 
-  static String formatRelativeNight(DateTime date, {DateTime? referenceDate}) {
-    final now = referenceDate ?? DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final target = DateTime(date.year, date.month, date.day);
-    final diffDays = today.difference(target).inDays;
-
-    if (diffDays == 0) return 'Tonight';
-    if (diffDays == 1) return 'Last night';
-    if (diffDays == 2) return '2 nights ago';
-    if (diffDays > 2 && diffDays <= 6) return '$diffDays nights ago';
-    return formatDate(date, includeWeekday: true);
   }
-
-  static String formatDebt(Duration debt) {
-    final totalMinutes = debt.inMinutes;
-    if (totalMinutes.abs() < 5) return 'On track';
-    final isSurplus = totalMinutes < 0;
-    final absMin = totalMinutes.abs();
-    final h = absMin ~/ 60;
-    final m = absMin % 60;
-    final timeStr = h == 0 ? '${m}m' : (m == 0 ? '${h}h' : '${h}h ${m}m');
-    return isSurplus ? '+$timeStr surplus' : '-$timeStr debt';
-  }
-}}
