@@ -229,3 +229,63 @@ class TargetBedtimeCard extends StatelessWidget {
   }
 }
 
+class WeeklyAverageCard extends StatelessWidget {
+  final Duration averageDuration;
+  final double goalHours;
+
+  const WeeklyAverageCard({
+    super.key,
+    required this.averageDuration,
+    required this.goalHours,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final avgMinutes = averageDuration.inMinutes;
+    final goalMinutes = (goalHours * 60).round();
+    final progress = goalMinutes > 0 ? (avgMinutes / goalMinutes).clamp(0.0, 1.0) : 0.0;
+    final diffHours = (avgMinutes - goalMinutes) / 60.0;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              '7-Day Average',
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textSecondary),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              TimeFormatter.formatDuration(averageDuration),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+            ),
+            const SizedBox(height: 8),
+            LinearProgressIndicator(
+              value: progress,
+              backgroundColor: AppColors.darkBorder,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                avgMinutes >= goalMinutes ? AppColors.success : AppColors.primary,
+              ),
+              borderRadius: BorderRadius.circular(4),
+              minHeight: 6,
+            ),
+            const SizedBox(height: 6),
+            Text(
+              diffHours >= 0
+                  ? '+${diffHours.toStringAsFixed(1)}h above goal'
+                  : '${diffHours.abs().toStringAsFixed(1)}h below goal',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+                color: diffHours >= 0 ? AppColors.success : AppColors.textMuted,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
