@@ -29,5 +29,4 @@ void main() {
       expect((await repo.getSettings()).goalHours, 8.0);
     });
   });
-}  });
 }
