@@ -75,4 +75,35 @@ class SleepNight {
     };
   }
 
+  factory SleepNight.fromMap(Map<String, dynamic> map) {
+    return SleepNight(
+      id: map['id'] as String,
+      bedtime: DateTime.parse(map['bedtime'] as String),
+      wakeTime: DateTime.parse(map['wake_time'] as String),
+      quality: (map['quality'] as num).toInt(),
+      notes: map['notes'] as String?,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at'] as String) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at'] as String) : null,
+    );
   }
+
+  Map<String, dynamic> toJson() => toMap();
+  factory SleepNight.fromJson(Map<String, dynamic> json) => SleepNight.fromMap(json);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SleepNight &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          bedtime == other.bedtime &&
+          wakeTime == other.wakeTime &&
+          quality == other.quality &&
+          notes == other.notes;
+
+  @override
+  int get hashCode => Object.hash(id, bedtime, wakeTime, quality, notes);
+
+  @override
+  String toString() => 'SleepNight(id: $id, bedtime: $bedtime, wakeTime: $wakeTime, duration: ${durationHours.toStringAsFixed(1)}h, quality: $quality)';
+}}
