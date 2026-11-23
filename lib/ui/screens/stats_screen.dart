@@ -244,4 +244,4 @@ class StatsScreen extends StatelessWidget {
       ),
     );
   }
-}}
+}
