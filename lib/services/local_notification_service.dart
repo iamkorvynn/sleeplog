@@ -107,4 +107,4 @@ class LocalNotificationService implements NotificationService {
       await _notificationsPlugin.cancelAll();
     } catch (_) {}
   }
-}
+}}
