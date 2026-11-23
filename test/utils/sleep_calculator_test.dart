@@ -117,4 +117,5 @@ void main() {
       expect(stats.goalMetPercentage, 100.0);
     });
   });
+}  });
 }
