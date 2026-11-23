@@ -79,5 +79,26 @@ void main() {
       expect(find.byIcon(Icons.nightlight_round), findsOneWidget);
     });
 
+    testWidgets('EmptyStateView renders and triggers action', (tester) async {
+      bool actionFired = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: EmptyStateView(
+              icon: Icons.bedtime_outlined,
+              title: 'No Data',
+              description: 'Empty view description',
+              actionText: 'Click me',
+              onAction: () => actionFired = true,
+            ),
+          ),
+        ),
+      );
+      expect(find.text('No Data'), findsOneWidget);
+      await tester.tap(find.text('Click me'));
+      await tester.pump();
+      expect(actionFired, isTrue);
+    });
+
       });
 }
