@@ -25,5 +25,11 @@ void main() {
       });
     }
 
+    test('scheduleMorningSummary schedules notification', () async {
+      const s = SleepSettings(morningSummaryHour: 8, morningSummaryMinute: 30);
+      await service.scheduleMorningSummary(s);
+      expect(service.scheduledItems.any((i) => i.id == 1002), isTrue);
+    });
+
       });
 }
