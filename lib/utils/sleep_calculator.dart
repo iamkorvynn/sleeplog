@@ -96,4 +96,16 @@ class SleepCalculator {
     return bestStreak;
   }
 
+  static Duration calculateSleepDebt(
+    List<SleepNight> nights,
+    double goalHours, {
+    int days = 7,
+    DateTime? referenceDate,
+  }) {
+    final windowNights = calculateNightsInWindow(nights, days, referenceDate: referenceDate);
+    final expectedMinutes = (days * goalHours * 60).round();
+    final actualMinutes = windowNights.fold<int>(0, (sum, n) => sum + n.durationMinutes);
+    return Duration(minutes: expectedMinutes - actualMinutes);
+  }
+
   }
