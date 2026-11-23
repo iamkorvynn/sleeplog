@@ -63,4 +63,14 @@ class TimeFormatter {
     return formatDate(date, includeWeekday: true);
   }
 
+  static String formatDebt(Duration debt) {
+    final totalMinutes = debt.inMinutes;
+    if (totalMinutes.abs() < 5) return 'On track';
+    final isSurplus = totalMinutes < 0;
+    final absMin = totalMinutes.abs();
+    final h = absMin ~/ 60;
+    final m = absMin % 60;
+    final timeStr = h == 0 ? '${m}m' : (m == 0 ? '${h}h' : '${h}h ${m}m');
+    return isSurplus ? '+$timeStr surplus' : '-$timeStr debt';
   }
+}}
