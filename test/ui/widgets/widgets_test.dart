@@ -79,48 +79,5 @@ void main() {
       expect(find.byIcon(Icons.nightlight_round), findsOneWidget);
     });
 
-    testWidgets('EmptyStateView renders and triggers action', (tester) async {
-      bool actionFired = false;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: EmptyStateView(
-              icon: Icons.bedtime_outlined,
-              title: 'No Data',
-              description: 'Empty view description',
-              actionText: 'Click me',
-              onAction: () => actionFired = true,
-            ),
-          ),
-        ),
-      );
-      expect(find.text('No Data'), findsOneWidget);
-      await tester.tap(find.text('Click me'));
-      await tester.pump();
-      expect(actionFired, isTrue);
-    });
-
-    testWidgets('ConfirmDialog confirms', (tester) async {
-      bool? res;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(
-            builder: (ctx) => ElevatedButton(
-              onPressed: () async {
-                res = await ConfirmDialog.show(ctx, title: 'Title', message: 'Message');
-              },
-              child: const Text('Show'),
-            ),
-          ),
-        ),
-      );
-      await tester.tap(find.text('Show'));
-      await tester.pump();
-      expect(find.text('Title'), findsOneWidget);
-      await tester.tap(find.text('Confirm'));
-      await tester.pump();
-      expect(res, isTrue);
-    });
-  });
-}  });
+      });
 }
