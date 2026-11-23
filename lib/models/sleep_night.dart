@@ -43,4 +43,51 @@ class SleepNight {
     return errors;
   }
 
+  SleepNight copyWith({
+    String? id,
+    DateTime? bedtime,
+    DateTime? wakeTime,
+    int? quality,
+    String? notes,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return SleepNight(
+      id: id ?? this.id,
+      bedtime: bedtime ?? this.bedtime,
+      wakeTime: wakeTime ?? this.wakeTime,
+      quality: quality ?? this.quality,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'bedtime': bedtime.toIso8601String(),
+      'wake_time': wakeTime.toIso8601String(),
+      'quality': quality,
+      'notes': notes,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+    };
+  }
+
+  factory SleepNight.fromMap(Map<String, dynamic> map) {
+    return SleepNight(
+      id: map['id'] as String,
+      bedtime: DateTime.parse(map['bedtime'] as String),
+      wakeTime: DateTime.parse(map['wake_time'] as String),
+      quality: (map['quality'] as num).toInt(),
+      notes: map['notes'] as String?,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at'] as String) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at'] as String) : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() => toMap();
+  factory SleepNight.fromJson(Map<String, dynamic> json) => SleepNight.fromMap(json);
+
   }
