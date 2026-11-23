@@ -61,4 +61,30 @@ class LocalNotificationService implements NotificationService {
     }
   }
 
+  @override
+  Future<void> scheduleMorningSummary(SleepSettings settings) async {
+    await cancelMorningSummary();
+    if (!settings.morningSummaryEnabled) return;
+
+    const androidDetails = AndroidNotificationDetails(
+      AppConstants.notificationChannelId,
+      AppConstants.notificationChannelName,
+      channelDescription: AppConstants.notificationChannelDescription,
+      importance: Importance.defaultImportance,
+      priority: Priority.defaultPriority,
+    );
+    const notificationDetails = NotificationDetails(android: androidDetails);
+
+    try {
+      await _notificationsPlugin.periodicallyShow(
+        AppConstants.morningNotificationId,
+        'Good morning!',
+        'How did you sleep? Tap to record your sleep log.',
+        RepeatInterval.daily,
+        notificationDetails,
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      );
+    } catch (_) {}
+  }
+
   }
