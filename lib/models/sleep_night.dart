@@ -63,4 +63,16 @@ class SleepNight {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'bedtime': bedtime.toIso8601String(),
+      'wake_time': wakeTime.toIso8601String(),
+      'quality': quality,
+      'notes': notes,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+    };
+  }
+
   }
