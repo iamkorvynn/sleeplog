@@ -28,5 +28,4 @@ void main() {
       expect(updated.bedtimeConsistencyScore, 100.0);
     });
   });
-}  });
 }
