@@ -17,4 +17,7 @@ class SleepNight {
     required this.qualityRating,
     this.notes,
   });
+
+  Duration get duration => wakeTime.difference(bedtime);
+  double get durationHours => duration.inMinutes / 60.0;
 }
