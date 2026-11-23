@@ -49,4 +49,5 @@ void main() {
       expect(await repo.getAllNights(), isEmpty);
     });
   });
+}  });
 }
