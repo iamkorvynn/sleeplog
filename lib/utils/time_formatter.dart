@@ -73,4 +73,4 @@ class TimeFormatter {
     final timeStr = h == 0 ? '${m}m' : (m == 0 ? '${h}h' : '${h}h ${m}m');
     return isSurplus ? '+$timeStr surplus' : '-$timeStr debt';
   }
-}
+}}
