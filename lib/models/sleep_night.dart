@@ -104,4 +104,6 @@ class SleepNight {
   @override
   int get hashCode => Object.hash(id, bedtime, wakeTime, quality, notes);
 
-  }
+  @override
+  String toString() => 'SleepNight(id: $id, bedtime: $bedtime, wakeTime: $wakeTime, duration: ${durationHours.toStringAsFixed(1)}h, quality: $quality)';
+}
