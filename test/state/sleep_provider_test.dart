@@ -62,5 +62,11 @@ void main() {
       expect(provider.nights, isEmpty);
     });
 
-      });
+    test('updateSettings updates preferences and reschedules notifications', () async {
+      final newS = provider.settings.copyWith(goalHours: 7.0, use24HourFormat: true);
+      await provider.updateSettings(newS);
+      expect(provider.settings.goalHours, 7.0);
+      expect(provider.is24Hour, isTrue);
+    });
+  });
 }
