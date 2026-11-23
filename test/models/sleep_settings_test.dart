@@ -70,5 +70,4 @@ void main() {
       expect(a, isNot(equals(c)));
     });
   });
-}  });
 }
