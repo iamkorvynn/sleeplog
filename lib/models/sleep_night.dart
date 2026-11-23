@@ -90,4 +90,18 @@ class SleepNight {
   Map<String, dynamic> toJson() => toMap();
   factory SleepNight.fromJson(Map<String, dynamic> json) => SleepNight.fromMap(json);
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SleepNight &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          bedtime == other.bedtime &&
+          wakeTime == other.wakeTime &&
+          quality == other.quality &&
+          notes == other.notes;
+
+  @override
+  int get hashCode => Object.hash(id, bedtime, wakeTime, quality, notes);
+
   }
