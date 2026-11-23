@@ -29,20 +29,4 @@ class InMemorySleepRepository implements SleepRepository {
     _storage[night.id] = night;
   }
 
-  @override
-  Future<void> deleteNight(String id) async {
-    _storage.remove(id);
   }
-
-  @override
-  Future<void> deleteAllNights() async {
-    _storage.clear();
-  }
-
-  @override
-  Future<void> importNights(List<SleepNight> nights) async {
-    for (final n in nights) {
-      _storage[n.id] = n;
-    }
-  }
-}}
