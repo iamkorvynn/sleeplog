@@ -102,4 +102,4 @@ class SleepStats {
       goalMetPercentage: goalMetPercentage ?? this.goalMetPercentage,
     );
   }
-}}
+}
