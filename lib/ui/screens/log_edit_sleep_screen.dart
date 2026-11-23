@@ -418,3 +418,4 @@ class _LogEditSleepScreenState extends State<LogEditSleepScreen> {
     );
   }
 }}
+}
