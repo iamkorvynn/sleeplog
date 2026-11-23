@@ -108,4 +108,14 @@ class SleepCalculator {
     return Duration(minutes: expectedMinutes - actualMinutes);
   }
 
+  static Map<int, int> calculateQualityDistribution(List<SleepNight> nights) {
+    final dist = <int, int>{1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
+    for (final night in nights) {
+      if (dist.containsKey(night.quality)) {
+        dist[night.quality] = dist[night.quality]! + 1;
+      }
+    }
+    return dist;
+  }
+
   }
