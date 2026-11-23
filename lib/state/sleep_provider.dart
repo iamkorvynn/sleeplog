@@ -52,4 +52,11 @@ class SleepProvider extends ChangeNotifier {
     _stats = SleepCalculator.computeAllStats(_nights, _settings);
   }
 
+  Future<void> addNight(SleepNight night) async {
+    await repository.saveNight(night);
+    _nights = await repository.getAllNights();
+    _recalculateStats();
+    notifyListeners();
+  }
+
   }
