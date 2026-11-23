@@ -108,4 +108,4 @@ class SqliteSleepRepository implements SleepRepository {
     }
     await batch.commit(noResult: true);
   }
-}
+}}
