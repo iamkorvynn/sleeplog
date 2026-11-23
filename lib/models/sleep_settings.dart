@@ -30,30 +30,4 @@ class SleepSettings {
   TimeOfDay get targetBedtime => TimeOfDay(hour: targetBedtimeHour, minute: targetBedtimeMinute);
   TimeOfDay get morningSummaryTime => TimeOfDay(hour: morningSummaryHour, minute: morningSummaryMinute);
 
-  SleepSettings copyWith({
-    double? goalHours,
-    bool? bedtimeReminderEnabled,
-    int? bedtimeReminderMinutesBefore,
-    int? targetBedtimeHour,
-    int? targetBedtimeMinute,
-    bool? morningSummaryEnabled,
-    int? morningSummaryHour,
-    int? morningSummaryMinute,
-    bool? use24HourFormat,
-    String? themeMode,
-  }) {
-    return SleepSettings(
-      goalHours: goalHours ?? this.goalHours,
-      bedtimeReminderEnabled: bedtimeReminderEnabled ?? this.bedtimeReminderEnabled,
-      bedtimeReminderMinutesBefore: bedtimeReminderMinutesBefore ?? this.bedtimeReminderMinutesBefore,
-      targetBedtimeHour: targetBedtimeHour ?? this.targetBedtimeHour,
-      targetBedtimeMinute: targetBedtimeMinute ?? this.targetBedtimeMinute,
-      morningSummaryEnabled: morningSummaryEnabled ?? this.morningSummaryEnabled,
-      morningSummaryHour: morningSummaryHour ?? this.morningSummaryHour,
-      morningSummaryMinute: morningSummaryMinute ?? this.morningSummaryMinute,
-      use24HourFormat: use24HourFormat ?? this.use24HourFormat,
-      themeMode: themeMode ?? this.themeMode,
-    );
-  }
-
   }
