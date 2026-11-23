@@ -64,4 +64,4 @@ class SqlitePreferencesRepository implements PreferencesRepository {
       whereArgs: ['user_settings'],
     );
   }
-}
+}}
