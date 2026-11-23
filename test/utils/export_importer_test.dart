@@ -51,5 +51,4 @@ void main() {
       expect(res.nights, isEmpty);
     });
   });
-}  });
 }
