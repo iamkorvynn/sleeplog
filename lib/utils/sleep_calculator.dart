@@ -118,4 +118,10 @@ class SleepCalculator {
     return dist;
   }
 
+  static double calculateAverageQuality(List<SleepNight> nights) {
+    if (nights.isEmpty) return 0.0;
+    final total = nights.fold<int>(0, (sum, n) => sum + n.quality);
+    return ((total / nights.length) * 10).roundToDouble() / 10;
+  }
+
   }
