@@ -96,3 +96,5 @@ The release APK will be generated at `build/app/outputs/flutter-apk/app-release.
 ## 📄 License
 
 MIT License. Designed and crafted with precision.
+
+<!-- commit step 2 -->
