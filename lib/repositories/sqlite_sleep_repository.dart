@@ -42,34 +42,4 @@ class SqliteSleepRepository implements SleepRepository {
     return _db!;
   }
 
-  @override
-  Future<List<SleepNight>> getAllNights() async {
-    final rows = await db.query(
-      AppConstants.nightsTable,
-      orderBy: 'bedtime DESC',
-    );
-    return rows.map((r) => SleepNight.fromMap(r)).toList();
-  }
-
-  @override
-  Future<SleepNight?> getNightById(String id) async {
-    final rows = await db.query(
-      AppConstants.nightsTable,
-      where: 'id = ?',
-      whereArgs: [id],
-      limit: 1,
-    );
-    if (rows.isEmpty) return null;
-    return SleepNight.fromMap(rows.first);
-  }
-
-  @override
-  Future<void> saveNight(SleepNight night) async {
-    await db.insert(
-      AppConstants.nightsTable,
-      night.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
   }
